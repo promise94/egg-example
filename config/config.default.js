@@ -10,9 +10,18 @@ exports.view = {
   }
 };
 
-exports.news = {
+exports.api = {
   appid,
-  secret,
+  secret
+};
+
+exports.news = {
   pageSize: 5,
-  serverUrl: "http://route.showapi.com/341-1"
+  serverUrl: "http://route.showapi.com/1211-1"
+};
+
+exports.middleware = ["robot"];
+
+exports.robot = {
+  ua: [/Baiduspider/i]
 };

@@ -8,7 +8,9 @@
         <ul class="news-view view">
             {% for item in list %}
                 <li class="item">
-                    <a href="{{item.url}}">{{item.title}}</a>
+                    <h6>{{helper.relativeTime(item.time)}}</h6>
+                    <p><span>英语：</span><span>{{item.english}}</span><p>
+                    <p><span>中文：</span><span>{{item.chinese}}</span><p>
                 </li>
             {% endfor %}
         </ul>

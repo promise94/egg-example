@@ -5,27 +5,26 @@ const Service = egg.Service;
 class NewsService extends Service {
   async list(page = 1) {
     const { serverUrl, pageSize } = this.config.news;
+    const { appid, secret } = this.config.api;
 
-    const { data: idList } = await this.ctx.curl(
-      `${serverUrl}/topstories.json`,
-      {
-        data: {
-          orderBy: '"$key"',
-          startAt: `"${pageSize * (page - 1)}"`,
-          endAt: `"${pageSize * page - 1}"`
-        },
-        dataType: "json"
-      }
-    );
+    const { data } = await this.ctx.curl(`${serverUrl}`, {
+      data: {
+        showapi_appid: appid,
+        showapi_sign: secret,
+        count: pageSize
+      },
+      dataType: "json"
+    });
 
-    const newsList = await Promise.all(
-      Object.keys(idList).map(key => {
-        const url = `${serverUrl}/item/${idList[key]}.json`;
-        return this.ctx.curl(url, { dataType: "json" });
-      })
-    );
+    /*   console.log("data--------");
+    console.log(data);
+    console.log("-------------------------------"); */
 
-    return newsList.map(res => res.data);
+    const result = data.showapi_res_body.data;
+    return result.map(item => {
+      item.time = Date.now();
+      return item;
+    });
   }
 }
 

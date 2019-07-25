@@ -1,3 +1,19 @@
+* {
+  margin: 0;
+  padding: 0;
+}
 li {
-    list-style: none;
+  list-style: none;
+}
+
+.item {
+    display: flex;
+    margin: 5px;
+    padding: 10px;
+    flex-direction: column;
+    transition: all .15s linear;
+}
+
+.item:hover {
+    background-color: aqua;
 }
